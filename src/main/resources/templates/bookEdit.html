@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/944d617b2d.js" crossorigin="anonymous"></script>
+    <title>Title</title>
+    <style>
+        #mynavbar{
+            display: flex;
+            justify-content: space-between;
+        }
+        .edit , .delete{
+            width: 90px;
+            margin-left: 20px;
+        }
+        .editBook{
+            margin-left: 140px;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container-fluid  p-0 m-0  ">
+    <nav class="navbar col-md-12  navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="javascript:void(0)">Book Page</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mynavbar">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0)">
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">
+                                Add Book
+                            </button>
+                        </a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="text" placeholder="Search">
+                    <button class="btn btn-primary" type="button">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="col-md-12 offset-4 " >
+        <h2 class="editBook">Edit Book</h2>
+        <form   method="post"
+              class="col-md-4 ">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" th:value="${editBook.name}" th:field="${editBook.name}" class="form-control" id="name"
+                       placeholder="name">
+            </div>
+            <div class="form-group">
+                <label for="catname">Select Category Name:</label><br>
+                <select name="categoryId" id="catname" class="form-control">
+                    <option th:each="category : ${categoryList}"
+                            th:value="${category.getId()}"
+                            th:text="${category.getName()}"
+                            th:selected="${editBook.category.id}"
+                    >
+
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="libname">Select Library Name:</label><br>
+                <select name="libraryId" id="libname" class="form-control">
+                    <option th:each="library : ${libraryList}"
+                            th:value="${library.id}"
+                            th:text="${library.name}"
+                            th:selected="${editBook.library.id}"
+                    >
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn bg-primary col-md-4">Qo'shish</button>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

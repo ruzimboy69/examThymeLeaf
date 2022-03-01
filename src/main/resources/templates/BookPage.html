@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/944d617b2d.js" crossorigin="anonymous"></script>
+  <title>Title</title>
+  <style>
+    #mynavbar{
+      display: flex;
+      justify-content: space-between;
+    }
+    .edit , .delete{
+      width: 90px;
+      margin-left: 20px;
+    }
+  </style>
+
+</head>
+<body>
+<div class="container-fluid  p-0 m-0  ">
+  <nav class="navbar col-md-12  navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="javascript:void(0)">Book Page</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mynavbar">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)">
+              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">
+                Add Book
+              </button>
+            </a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="text" placeholder="Search">
+          <button class="btn btn-primary" type="button">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <div class="col-md-12">
+    <div class="col-md-12 d-flex flex-wrap">
+      <div class="col-md-3  mb-3" th:each="ketmon : ${books}">
+        <div class="card ">
+          <div class="card-body p-0 mb-0">
+            <img src="https://miro.medium.com/max/1200/1*dOHN8b8JhkEYa0bdP1M5Ww.jpeg" class="img-fluid" alt="">
+            <div class="pl-3 pt-2">
+             <div class="d-flex"><p class="pr-2">Book name:</p><h5 th:text="${ketmon.name}"/></div>
+              <div class="d-flex"><p class="pr-2">Category name:</p><h5 th:text="${ketmon.category.getName()}"/></div>
+              <div class="d-flex"><p class="pr-2">Book name:</p><h5 th:text="${ketmon.library.getName()}"/></div>
+             <div class="d-flex">
+               <form th:action="'/book/edit/'+${ketmon.id}"  method="get">
+                 <a href="" ><button class="btn btn-success  edit ">Edit</button> </a>
+               </form>
+               <form th:action="'/book/delete/'+${ketmon.id}" method="post" >
+                 <a th:href="'/book/delete/'+${ketmon.id}"><button class="btn-danger btn delete">Delete</button></a>
+               </form>
+             </div>
+            </div>
+<!--            <div class="d-flex">-->
+<!--              <form th:action="'/book/update/'+${ketmon.id}" method="get" class=" col-md-6 footer_card" data-bs-toggle="modal" data-bs-target="#myModal">-->
+<!--                <button class="btn m-1 edit" ><div class="editbtn" >edit</div><a>-->
+<!--                  <img style="width: 30px"-->
+<!--                       src="https://icons-for-free.com/iconfiles/png/512/svg+create+edit+edit+file+office+pencil+writing+creativ+icon-1320185158722776676.png" alt=""></a>-->
+<!--                </button>-->
+<!--              </form>-->
+<!--              <form th:action="'/book/delete/'+${ketmon.id}" method="post" class=" col-md-6 footer_card">-->
+<!--                <button class="btn m-1  delete"><div class="deletebtn">delete</div><a th:href="'/warehouse/delete/'+${ketmon.id}"><img style="width: 30px" src="https://media.istockphoto.com/vectors/trash-icon-vector-id468424428?k=20&m=468424428&s=170667a&w=0&h=j_a8VtI_nVvhL9L3QXvnTsth_N3qSC-YVq6nw52i4os=" alt=""></a></button>-->
+<!--              </form>-->
+<!--            </div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title text-center">Add new book</h4>
+          <!--                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>-->
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <form action="/book/add"  th:object="${newBook}" method="post"
+                class="col-md-12 ">
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input type="text" th:field="*{name}" class="form-control" id="name"
+                     placeholder="name">
+            </div>
+            <div class="form-group">
+              <label for="catname">Select Category Name:</label><br>
+              <select name="categoryId" id="catname" class="form-control">
+                <option th:each="category : ${categoryList}"
+                        th:value="${category.id}"
+                        th:text="${category.name}">
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="libname">Select Library Name:</label><br>
+              <select name="libraryId" id="libname" class="form-control">
+               <option th:each="library : ${libraryList}"
+                       th:value="${library.id}"
+                       th:text="${library.name}">
+               </option>
+             </select>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn bg-primary">Qo'shish</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

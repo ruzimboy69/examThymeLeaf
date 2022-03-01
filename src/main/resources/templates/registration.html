@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/main.css">
+    <title>Registration</title>
+    <style>
+        .btn{
+            color:#fff;
+            width: 100%;
+        }
+        form{
+            margin-left: 350px;
+            margin-top: 100px;
+        }
+        .form-control{
+            background-color: #f8f6f6;
+            color: #d2d2d2;
+            border: 1px solid #faf6f6;
+        }
+        .footer{
+            margin-top: 160px;
+            text-align: center;
+            color: #d2d2d2;
+        }
+        span{
+            font-size: 11px;
+            color: #2F2F2F;
+            opacity: 0.5;
+            margin-left: 25px;
+        }
+
+        .sidebar a {
+            display: block;
+            color:  rgba(255, 255, 255, 0.54);
+            color: black;
+            padding: 16px;
+            text-decoration: none;
+        }
+
+        .Menu ul{
+            list-style-type: none;
+            width: 100%;
+            padding: 0px;
+        }
+        .Menu ul li{
+            padding: 5px 40px;
+            width: 100%;
+            position: relative;
+            border-bottom: 1px solid #404f91;
+            color:  rgba(255, 255, 255, 0.54);
+
+        }
+        .Menu li:hover{
+            /*background-color: #E5E5E5;*/
+            background-color: #404f91;
+            color: #fff;
+
+
+        }
+        .Menu ul li a{
+            text-decoration: none;
+            /*color: #000;*/
+            padding-left: 10px;
+            color:  rgba(255, 255, 255, 0.54);
+
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row  ">
+        <div class="col-md-12 text-center">
+            <form  action="/library/enter/check" th:object="${userDto}"  method="post" class="col-md-4 mt-5">
+                <div class="form-group">
+                    <label class="text-white" for="phone">User name:</label>
+                    <input type="text" th:field="*{userName}"   class="form-control" id="phone" placeholder="User name">
+                </div>
+                <div class="form-group">
+                    <label class="text-white" for="pwd">Password:</label>
+                    <input type="password"  th:field="*{password}" class="form-control" id="pwd" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn bg-primary">Kirish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
