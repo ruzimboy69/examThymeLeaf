@@ -20,9 +20,9 @@ public class UserPageController {
         for (User user : userRepository.findAll()) {
             if(user.getUserName().equals(userDto.getUserName()) && user.getPassword().equals(userDto.getPassword())){
                if(user.getRole()){
-                   return "AdminPage";
+                   return "pageAdmin";
                }else{
-                   return "UserPage";
+                   return "pageUser";
                }
             }
         }
